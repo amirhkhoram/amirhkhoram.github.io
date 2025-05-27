@@ -2,110 +2,91 @@
 <html>
   <head>
     <title>About Me</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="assets/css/main.css" />
-    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-    <style>
-      /* Force 3 rows, auto-generate columns */
-      .gallery.style2 {
-        display: grid;
-        grid-auto-flow: column;
-        grid-template-rows: repeat(3, auto);
-        gap: 1.5rem;
-        justify-items: center;
-        align-items: center;
-      }
-
-      .gallery.style2 article {
-        transform-origin: center center;
-        display: block;
-      }
-
-      .gallery.style2 article:nth-child(odd) {
-        transform: rotateZ(-2deg);
-      }
-
-      .gallery.style2 article:nth-child(even) {
-        transform: rotateZ(2deg);
-      }
-
-      .gallery.style2 .image img {
-        width: 100%;
-        height: auto;
-        max-width: 300px;
-        border-radius: 8px;
-      }
-    </style>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	<style>
+	  /* Optional fun twist: make images slightly rotated for a casual feel */
+	  .gallery.style2 article {
+		transform: rotateZ(-2deg);
+		margin: 1.5rem;
+		display: inline-block;
+	  }
+  
+	  .gallery.style2 article:nth-child(even) {
+		transform: rotateZ(2deg);
+	  }
+	</style>
   </head>
   <body class="is-preload">
+  
+	<!-- Wrapper -->
+	<div id="wrapper" class="divided">
+  
+	  <!-- About Section -->
+	  <section class="wrapper style1 align-center">
+		<div class="inner">
+		  <h2>About Me</h2>
+		  <p>
+			I'm a PhD candidate in Astronomy at the University of Bologna, where I explore the universe through the lenses of astrophysics and cosmology. My fascination with the stars began when I was just 6 years old—and it’s been a thrilling journey ever since. I earned my MSc in Astrophysics and Cosmology from the University of Padova in Italy, and my BSc in Physics from Kharazmi University of Tehran, back in my hometown.
+		  </p>
+		  <p>
+			I thrive on tackling diverse research challenges across multiple areas of science. Whether it’s galaxies, dark energy, or cosmic structure, I believe that juggling interdisciplinary projects fuels creativity and innovation. I’m also passionate about astrophotography—capturing galaxies, nebulae, and the night sky through my lens is where science meets art for me.
+		  </p>
+		  <p>
+			Outside academia, I’m a poet, gravel biker, and an experimental home chef. I find joy in discovering new cuisines from different cultures, just as much as I do in riding long remote trails or crafting a well-timed verse. For me, curiosity doesn’t stop at the edge of the cosmos—it’s a way of life.
+        </p>
+	</div>
 
-    <!-- Wrapper -->
-    <div id="wrapper" class="divided">
+	<!-- Image Gallery -->
+	<div class="gallery style2 medium lightbox onscroll-fade-in">
+	  <article>
+		<a href="images/about/astro1.JPG" class="image">
+		  <img src="images/about/astro1.JPG" alt="Astrophotography" />
+		</a>
+	  </article>
+	  <article>
+		<a href="images/about/gravel1.JPG" class="image">
+		  <img src="images/about/gravel1.JPG" alt="Gravel biking" />
+		</a>
+	  </article>
+	  <article>
+		<a href="images/about/food1.JPG" class="image">
+		  <img src="images/about/food1.JPG" alt="Cooking" />
+		</a>
+	  </article>
+	  <article>
+		<a href="images/about/Travel1.jpeg" class="image">
+		  <img src="images/about/Travel1.jpeg" alt="Cooking" />
+		</a>
+	  </article>
+	  <article>
+		<a href="images/about/me1.jpg" class="image">
+		  <img src="images/about/me1.jpg" alt="Poetry" />
+		</a>
+	  </article>
+	  <article>
+		<a href="images/about/poetry1.JPG" class="image">
+		  <img src="images/about/poetry1.JPG" alt="Poetry" />
+		</a>
+	  </article>
+	  <article>
+		<a href="images/about/Photo2.JPG" class="image">
+		  <img src="images/about/poetry1.JPG" alt="Poetry" />
+		</a>
+	  </article>
+	</div>
+  </section>
 
-      <!-- About Section -->
-      <section class="wrapper style1 align-center">
-        <div class="inner">
-          <h2>About Me</h2>
-          <p>
-            I'm a PhD candidate in Astronomy at the University of Bologna, where I explore the universe through the lenses of astrophysics and cosmology. My fascination with the stars began when I was just 6 years old—and it’s been a thrilling journey ever since. I earned my MSc in Astrophysics and Cosmology from the University of Padova in Italy, and my BSc in Physics from Kharazmi University of Tehran, back in my hometown.
-          </p>
-          <p>
-            I thrive on tackling diverse research challenges across multiple areas of science. Whether it’s galaxies, dark energy, or cosmic structure, I believe that juggling interdisciplinary projects fuels creativity and innovation. I’m also passionate about astrophotography—capturing galaxies, nebulae, and the night sky through my lens is where science meets art for me.
-          </p>
-          <p>
-            Outside academia, I’m a poet, gravel biker, and an experimental home chef. I find joy in discovering new cuisines from different cultures, just as much as I do in riding long remote trails or crafting a well-timed verse. For me, curiosity doesn’t stop at the edge of the cosmos—it’s a way of life.
-          </p>
-        </div>
+  <!-- Footer -->
+  <footer class="wrapper style1 align-center">
+	<div class="inner">
+	  <p>&copy; Amir Khoram. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+	</div>
+  </footer>
 
-        <!-- Image Gallery -->
-        <div class="gallery style2 medium lightbox onscroll-fade-in">
-          <article>
-            <a href="images/about/astro1.JPG" class="image">
-              <img src="images/about/astro1.JPG" alt="Astrophotography" />
-            </a>
-          </article>
-          <article>
-            <a href="images/about/gravel1.JPG" class="image">
-              <img src="images/about/gravel1.JPG" alt="Gravel biking" />
-            </a>
-          </article>
-          <article>
-            <a href="images/about/food1.JPG" class="image">
-              <img src="images/about/food1.JPG" alt="Cooking" />
-            </a>
-          </article>
-          <article>
-            <a href="images/about/Travel1.jpeg" class="image">
-              <img src="images/about/Travel1.jpeg" alt="Travel" />
-            </a>
-          </article>
-          <article>
-            <a href="images/about/me1.jpg" class="image">
-              <img src="images/about/me1.jpg" alt="Portrait" />
-            </a>
-          </article>
-          <article>
-            <a href="images/about/poetry1.JPG" class="image">
-              <img src="images/about/poetry1.JPG" alt="Poetry" />
-            </a>
-          </article>
-          <article>
-            <a href="images/about/Photo2.JPG" class="image">
-              <img src="images/about/Photo2.JPG" alt="Poetry 2" />
-            </a>
-          </article>
-        </div>
-      </section>
-
-      <!-- Footer -->
-      <footer class="wrapper style1 align-center">
-        <div class="inner">
-          <p>&copy; Amir Khoram. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
-        </div>
-      </footer>
-
-    </div>
+</div>
 
     <!-- Scripts -->
     <script src="assets/js/jquery.min.js"></script>
