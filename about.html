@@ -8,13 +8,12 @@
     <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
     <style>
 
-      /* ── Masonry-style aspect-ratio grid ── */
+      /* ── Photo Grid ── */
       .photo-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        /* rows are 180px units; JS will set span based on natural ratio */
-        grid-auto-rows: 180px;
-        gap: 8px;
+        grid-auto-rows: 260px;
+        gap: 10px;
         padding: 2rem 2rem 3rem;
         max-width: 1680px;
         margin: 0 auto;
@@ -26,13 +25,13 @@
         border-radius: 6px;
         position: relative;
         background: #0d1117;
+        cursor: pointer;
       }
 
-      /* img fills the cell exactly — no crop, no distortion */
       .photo-grid img {
         width: 100%;
         height: 100%;
-        object-fit: contain;   /* ← preserves full image, no crop */
+        object-fit: contain;
         object-position: center;
         display: block;
         background: #0d1117;
@@ -45,7 +44,6 @@
         filter: brightness(1.05);
       }
 
-      /* caption ribbon */
       .photo-grid a::after {
         content: attr(data-caption);
         position: absolute;
@@ -62,12 +60,97 @@
       }
       .photo-grid a:hover::after { opacity: 1; }
 
-      /* Responsive */
-      @media (max-width: 900px) {
-        .photo-grid { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 150px; }
+      @media (max-width: 1100px) {
+        .photo-grid { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 210px; }
       }
-      @media (max-width: 580px) {
-        .photo-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 130px; gap: 5px; padding: 1rem 0.6rem 2rem; }
+      @media (max-width: 700px) {
+        .photo-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 160px; gap: 6px; padding: 1rem 0.6rem 2rem; }
+      }
+
+      /* ── Lightbox ── */
+      #lightbox {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: rgba(0,0,0,0.93);
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      #lightbox.open { display: flex; }
+
+      #lb-img-wrap {
+        position: relative;
+        max-width: 92vw;
+        max-height: 85vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #lb-img {
+        max-width: 88vw;
+        max-height: 82vh;
+        object-fit: contain;
+        border-radius: 4px;
+        box-shadow: 0 8px 60px rgba(0,0,0,0.7);
+        transition: opacity 0.22s ease;
+      }
+      #lb-img.fade { opacity: 0; }
+
+      #lb-caption {
+        color: rgba(255,255,255,0.7);
+        font-size: 0.8rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-top: 1rem;
+        min-height: 1.2em;
+      }
+
+      .lb-btn {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255,255,255,0.08);
+        border: none;
+        color: #fff;
+        font-size: 2rem;
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex; align-items: center; justify-content: center;
+        transition: background 0.2s;
+        user-select: none;
+        z-index: 10000;
+      }
+      .lb-btn:hover { background: rgba(255,255,255,0.2); }
+      #lb-prev { left: 1.2rem; }
+      #lb-next { right: 1.2rem; }
+
+      #lb-close {
+        position: fixed;
+        top: 1rem; right: 1.2rem;
+        background: none;
+        border: none;
+        color: rgba(255,255,255,0.7);
+        font-size: 2rem;
+        cursor: pointer;
+        z-index: 10000;
+        line-height: 1;
+        transition: color 0.2s;
+      }
+      #lb-close:hover { color: #fff; }
+
+      #lb-counter {
+        position: fixed;
+        top: 1.1rem; left: 50%;
+        transform: translateX(-50%);
+        color: rgba(255,255,255,0.45);
+        font-size: 0.75rem;
+        letter-spacing: 0.1em;
+        z-index: 10000;
       }
 
     </style>
@@ -76,7 +159,6 @@
 
     <div id="wrapper" class="divided">
 
-      <!-- About Section -->
       <section class="wrapper style1 align-center">
         <div class="inner">
           <h2>About Me</h2>
@@ -91,68 +173,59 @@
           </p>
         </div>
 
-        <!-- ── Photo Grid ── -->
         <div class="photo-grid" id="photoGrid">
-
-          <a href="images/about/IMG_4099.png"  data-caption="Observatory">
-            <img src="images/about/IMG_4099.png"  alt="Observatory" />
-          </a>
-          <a href="images/about/astro1.JPG"    data-caption="Astrophotography">
-            <img src="images/about/astro1.JPG"    alt="Astrophotography" />
-          </a>
-          <a href="images/about/IMG_4110.png"  data-caption="Tenerife">
-            <img src="images/about/IMG_4110.png"  alt="Tenerife" />
-          </a>
-          <a href="images/about.png"           data-caption="Fieldwork">
-            <img src="images/about.png"           alt="Fieldwork" />
-          </a>
-          <a href="images/about/gravel1.JPG"   data-caption="Gravel biking">
-            <img src="images/about/gravel1.JPG"   alt="Gravel biking" />
-          </a>
-          <a href="images/about/food1.JPG"     data-caption="Cooking">
-            <img src="images/about/food1.JPG"     alt="Cooking" />
-          </a>
-          <a href="images/about/Travel1.jpeg"  data-caption="Travel">
-            <img src="images/about/Travel1.jpeg"  alt="Travel" />
-          </a>
-          <a href="images/about/Bern.PNG"      data-caption="Bern">
-            <img src="images/about/Bern.PNG"      alt="Bern" />
-          </a>
-          <a href="images/about/me1.jpg"       data-caption="Portrait">
-            <img src="images/about/me1.jpg"       alt="Portrait" />
-          </a>
-          <a href="images/about/poetry1.JPG"   data-caption="Poetry">
-            <img src="images/about/poetry1.JPG"   alt="Poetry" />
-          </a>
-          <a href="images/about/Kua.png"    >
-            <img src="images/about/Kua.png"    alt="Moments" />
-          </a>
-          <a href="images/about/Wreck.jpg"    >
-            <img src="images/about/Wreck.jpg"    alt="Moments" />
-          </a>
-          <a href="images/about/Kangoo.png"   >
-            <img src="images/about/Kangoo.png"    alt="Moments" />
-          </a>
-          <a href="images/about/INdo_Turtle.jpg"    >
-            <img src="images/about/INdo_Turtle.jpg"    alt="Moments" />
-          </a>
-          <a href="images/about/SunBath.png"   >
-            <img src="images/about/SunBath.png"    alt="Moments" />
-          </a>
-
+          <a href="images/about/IMG_4099.png"    data-caption="Observatory">
+            <img src="images/about/IMG_4099.png"    alt="Observatory" /></a>
+          <a href="images/about/astro1.JPG"      data-caption="Astrophotography">
+            <img src="images/about/astro1.JPG"      alt="Astrophotography" /></a>
+          <a href="images/about/IMG_4110.png"    data-caption="Tenerife">
+            <img src="images/about/IMG_4110.png"    alt="Tenerife" /></a>
+          <a href="images/about.png"             data-caption="Fieldwork">
+            <img src="images/about.png"             alt="Fieldwork" /></a>
+          <a href="images/about/gravel1.JPG"     data-caption="Gravel biking">
+            <img src="images/about/gravel1.JPG"     alt="Gravel biking" /></a>
+          <a href="images/about/food1.JPG"       data-caption="Cooking">
+            <img src="images/about/food1.JPG"       alt="Cooking" /></a>
+          <a href="images/about/Travel1.jpeg"    data-caption="Travel">
+            <img src="images/about/Travel1.jpeg"    alt="Travel" /></a>
+          <a href="images/about/Bern.PNG"        data-caption="Bern">
+            <img src="images/about/Bern.PNG"        alt="Bern" /></a>
+          <a href="images/about/me1.jpg"         data-caption="Portrait">
+            <img src="images/about/me1.jpg"         alt="Portrait" /></a>
+          <a href="images/about/poetry1.JPG"     data-caption="Poetry">
+            <img src="images/about/poetry1.JPG"     alt="Poetry" /></a>
+          <a href="images/about/Kua.png">
+            <img src="images/about/Kua.png"         alt="Kua" /></a>
+          <a href="images/about/Wreck.jpg">
+            <img src="images/about/Wreck.jpg"       alt="Wreck" /></a>
+          <a href="images/about/Kangoo.png">
+            <img src="images/about/Kangoo.png"      alt="Kangoo" /></a>
+          <a href="images/about/INdo_Turtle.jpg">
+            <img src="images/about/INdo_Turtle.jpg" alt="Turtle" /></a>
+          <a href="images/about/SunBath.png">
+            <img src="images/about/SunBath.png"     alt="Sunbath" /></a>
         </div>
       </section>
 
-      <!-- Footer -->
       <footer class="wrapper style1 align-center">
         <div class="inner">
           <p>&copy; Amir Khoram. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
         </div>
       </footer>
-
     </div>
 
-    <!-- Scripts -->
+    <!-- ── Lightbox markup ── -->
+    <div id="lightbox">
+      <button id="lb-close" aria-label="Close">&#x2715;</button>
+      <div id="lb-counter"></div>
+      <button class="lb-btn" id="lb-prev" aria-label="Previous">&#8592;</button>
+      <div id="lb-img-wrap">
+        <img id="lb-img" src="" alt="" />
+      </div>
+      <button class="lb-btn" id="lb-next" aria-label="Next">&#8594;</button>
+      <div id="lb-caption"></div>
+    </div>
+
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/jquery.scrollex.min.js"></script>
     <script src="assets/js/jquery.scrolly.min.js"></script>
@@ -162,61 +235,91 @@
     <script src="assets/js/main.js"></script>
 
     <script>
-    /*
-     * After each image loads, read its natural width/height ratio and set
-     * grid-column-span and grid-row-span so the cell fits the image naturally
-     * without any cropping.
-     *
-     * Base unit = 180 px (grid-auto-rows). We keep columns = 4.
-     * Rules:
-     *   ratio >= 2.2  → wide panorama  → colSpan 2, rowSpan 1
-     *   ratio >= 1.2  → landscape      → colSpan 2, rowSpan 1   (slightly tall cells)
-     *   ratio ~= 1    → square         → colSpan 1, rowSpan 1
-     *   ratio < 0.75  → portrait       → colSpan 1, rowSpan 2
-     *   ratio < 0.5   → tall portrait  → colSpan 1, rowSpan 3
-     */
     (function () {
-      const ROW_PX = 180;   // must match grid-auto-rows in CSS
-      const GAP    = 8;
 
+      /* ── 1. Aspect-ratio grid spans ── */
       function applySpan(img) {
-        const w = img.naturalWidth;
-        const h = img.naturalHeight;
+        const w = img.naturalWidth, h = img.naturalHeight;
         if (!w || !h) return;
-
-        const ratio = w / h;
-        const tile  = img.closest('a');
-
-        let colSpan, rowSpan;
-
-        if (ratio >= 2.2) {
-          colSpan = 3; rowSpan = 1;
-        } else if (ratio >= 1.2) {
-          colSpan = 2; rowSpan = 1;
-        } else if (ratio >= 0.85) {
-          // near-square: give it a 1×1 but make the row taller by using rowSpan 1
-          colSpan = 1; rowSpan = 1;
-        } else if (ratio >= 0.55) {
-          // portrait
-          colSpan = 1; rowSpan = 2;
-        } else {
-          // very tall
-          colSpan = 1; rowSpan = 3;
-        }
-
-        tile.style.gridColumn = 'span ' + colSpan;
-        tile.style.gridRow    = 'span ' + rowSpan;
+        const r = w / h;
+        const tile = img.closest('a');
+        let c, ro;
+        if      (r >= 2.2)  { c = 3; ro = 1; }
+        else if (r >= 1.2)  { c = 2; ro = 1; }
+        else if (r >= 0.85) { c = 1; ro = 1; }
+        else if (r >= 0.55) { c = 1; ro = 2; }
+        else                { c = 1; ro = 3; }
+        tile.style.gridColumn = 'span ' + c;
+        tile.style.gridRow    = 'span ' + ro;
       }
 
-      const images = document.querySelectorAll('#photoGrid img');
-      images.forEach(function (img) {
-        if (img.complete && img.naturalWidth) {
-          applySpan(img);
-        } else {
-          img.addEventListener('load', function () { applySpan(img); });
-          // if it errors, leave as default 1×1
-        }
+      document.querySelectorAll('#photoGrid img').forEach(function(img) {
+        if (img.complete && img.naturalWidth) { applySpan(img); }
+        else { img.addEventListener('load', function(){ applySpan(img); }); }
       });
+
+      /* ── 2. Lightbox ── */
+      const tiles   = Array.from(document.querySelectorAll('#photoGrid a'));
+      const lb      = document.getElementById('lightbox');
+      const lbImg   = document.getElementById('lb-img');
+      const lbCap   = document.getElementById('lb-caption');
+      const lbCount = document.getElementById('lb-counter');
+      let current   = 0;
+
+      function show(idx) {
+        current = (idx + tiles.length) % tiles.length;
+        const tile = tiles[current];
+        const src  = tile.getAttribute('href');
+        const cap  = tile.getAttribute('data-caption') || '';
+
+        lbImg.classList.add('fade');
+        setTimeout(function() {
+          lbImg.src = src;
+          lbImg.alt = cap;
+          lbCap.textContent = cap;
+          lbCount.textContent = (current + 1) + ' / ' + tiles.length;
+          lbImg.onload = function() { lbImg.classList.remove('fade'); };
+          // if already cached it won't fire onload, so remove immediately
+          if (lbImg.complete) lbImg.classList.remove('fade');
+        }, 180);
+      }
+
+      function open(idx) {
+        lb.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        show(idx);
+      }
+
+      function close() {
+        lb.classList.remove('open');
+        document.body.style.overflow = '';
+        lbImg.src = '';
+      }
+
+      tiles.forEach(function(tile, i) {
+        tile.addEventListener('click', function(e) {
+          e.preventDefault();
+          open(i);
+        });
+      });
+
+      document.getElementById('lb-close').addEventListener('click', close);
+      document.getElementById('lb-prev').addEventListener('click', function() { show(current - 1); });
+      document.getElementById('lb-next').addEventListener('click', function() { show(current + 1); });
+
+      // Click backdrop to close
+      lb.addEventListener('click', function(e) {
+        if (e.target === lb) close();
+      });
+
+      // Keyboard nav
+      document.addEventListener('keydown', function(e) {
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'ArrowRight') show(current + 1);
+        if (e.key === 'ArrowLeft')  show(current - 1);
+        if (e.key === 'Escape')     close();
+      });
+
     })();
     </script>
 

@@ -1,0 +1,224 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>About Me</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <style>
+
+      /* ── Masonry-style aspect-ratio grid ── */
+      .photo-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        /* rows are 180px units; JS will set span based on natural ratio */
+        grid-auto-rows: 180px;
+        gap: 8px;
+        padding: 2rem 2rem 3rem;
+        max-width: 1680px;
+        margin: 0 auto;
+      }
+
+      .photo-grid a {
+        display: block;
+        overflow: hidden;
+        border-radius: 6px;
+        position: relative;
+        background: #0d1117;
+      }
+
+      /* img fills the cell exactly — no crop, no distortion */
+      .photo-grid img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;   /* ← preserves full image, no crop */
+        object-position: center;
+        display: block;
+        background: #0d1117;
+        transition: transform 0.4s ease, filter 0.4s ease;
+        filter: brightness(0.92);
+      }
+
+      .photo-grid a:hover img {
+        transform: scale(1.03);
+        filter: brightness(1.05);
+      }
+
+      /* caption ribbon */
+      .photo-grid a::after {
+        content: attr(data-caption);
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        padding: 0.45rem 0.7rem;
+        background: linear-gradient(transparent, rgba(0,0,0,0.6));
+        color: #fff;
+        font-size: 0.72rem;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        border-radius: 0 0 6px 6px;
+      }
+      .photo-grid a:hover::after { opacity: 1; }
+
+      /* Responsive */
+      @media (max-width: 900px) {
+        .photo-grid { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 150px; }
+      }
+      @media (max-width: 580px) {
+        .photo-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 130px; gap: 5px; padding: 1rem 0.6rem 2rem; }
+      }
+
+    </style>
+  </head>
+  <body class="is-preload">
+
+    <div id="wrapper" class="divided">
+
+      <!-- About Section -->
+      <section class="wrapper style1 align-center">
+        <div class="inner">
+          <h2>About Me</h2>
+          <p>
+            I'm a PhD candidate in Astronomy at the University of Bologna (Prof. Sirio Belli), where I explore the universe through the lenses of astrophysics and cosmology. My fascination with the stars began when I was just 6 years old—and it's been a thrilling journey ever since. I earned my MSc in Astrophysics and Cosmology (Dr. Bianca Poggianti) from the University of Padova in Italy, and my BSc (Prof. Shahram Khosravi) in Physics from Kharazmi University of Tehran, back in my hometown.
+          </p>
+          <p>
+            I thrive on tackling diverse research challenges across multiple areas of science. Whether it's galaxies, dark energy, or cosmic structure, I believe that juggling interdisciplinary projects fuels creativity and innovation. I'm also passionate about astrophotography—capturing galaxies, nebulae, and the night sky through my lens is where science meets art for me.
+          </p>
+          <p>
+            Outside academia, I'm a poet, scuba diver, climber, gravel biker, and an experimental home chef. I find joy in discovering new cuisines from different cultures, just as much as I do in riding long remote trails or crafting a well-timed verse. For me, curiosity doesn't stop at the edge of the cosmos—it's a way of life.
+          </p>
+        </div>
+
+        <!-- ── Photo Grid ── -->
+        <div class="photo-grid" id="photoGrid">
+
+          <a href="images/about/IMG_4099.png"  data-caption="Observatory">
+            <img src="images/about/IMG_4099.png"  alt="Observatory" />
+          </a>
+          <a href="images/about/astro1.JPG"    data-caption="Astrophotography">
+            <img src="images/about/astro1.JPG"    alt="Astrophotography" />
+          </a>
+          <a href="images/about/IMG_4110.png"  data-caption="Tenerife">
+            <img src="images/about/IMG_4110.png"  alt="Tenerife" />
+          </a>
+          <a href="images/about.png"           data-caption="Fieldwork">
+            <img src="images/about.png"           alt="Fieldwork" />
+          </a>
+          <a href="images/about/gravel1.JPG"   data-caption="Gravel biking">
+            <img src="images/about/gravel1.JPG"   alt="Gravel biking" />
+          </a>
+          <a href="images/about/food1.JPG"     data-caption="Cooking">
+            <img src="images/about/food1.JPG"     alt="Cooking" />
+          </a>
+          <a href="images/about/Travel1.jpeg"  data-caption="Travel">
+            <img src="images/about/Travel1.jpeg"  alt="Travel" />
+          </a>
+          <a href="images/about/Bern.PNG"      data-caption="Bern">
+            <img src="images/about/Bern.PNG"      alt="Bern" />
+          </a>
+          <a href="images/about/me1.jpg"       data-caption="Portrait">
+            <img src="images/about/me1.jpg"       alt="Portrait" />
+          </a>
+          <a href="images/about/poetry1.JPG"   data-caption="Poetry">
+            <img src="images/about/poetry1.JPG"   alt="Poetry" />
+          </a>
+          <a href="images/about/Kua.png"    >
+            <img src="images/about/Kua.png"    alt="Moments" />
+          </a>
+          <a href="images/about/Wreck.jpg"    >
+            <img src="images/about/Wreck.jpg"    alt="Moments" />
+          </a>
+          <a href="images/about/Kangoo.png"   >
+            <img src="images/about/Kangoo.png"    alt="Moments" />
+          </a>
+          <a href="images/about/INdo_Turtle.jpg"    >
+            <img src="images/about/INdo_Turtle.jpg"    alt="Moments" />
+          </a>
+          <a href="images/about/SunBath.png"   >
+            <img src="images/about/SunBath.png"    alt="Moments" />
+          </a>
+
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="wrapper style1 align-center">
+        <div class="inner">
+          <p>&copy; Amir Khoram. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+        </div>
+      </footer>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <script>
+    /*
+     * After each image loads, read its natural width/height ratio and set
+     * grid-column-span and grid-row-span so the cell fits the image naturally
+     * without any cropping.
+     *
+     * Base unit = 180 px (grid-auto-rows). We keep columns = 4.
+     * Rules:
+     *   ratio >= 2.2  → wide panorama  → colSpan 2, rowSpan 1
+     *   ratio >= 1.2  → landscape      → colSpan 2, rowSpan 1   (slightly tall cells)
+     *   ratio ~= 1    → square         → colSpan 1, rowSpan 1
+     *   ratio < 0.75  → portrait       → colSpan 1, rowSpan 2
+     *   ratio < 0.5   → tall portrait  → colSpan 1, rowSpan 3
+     */
+    (function () {
+      const ROW_PX = 180;   // must match grid-auto-rows in CSS
+      const GAP    = 8;
+
+      function applySpan(img) {
+        const w = img.naturalWidth;
+        const h = img.naturalHeight;
+        if (!w || !h) return;
+
+        const ratio = w / h;
+        const tile  = img.closest('a');
+
+        let colSpan, rowSpan;
+
+        if (ratio >= 2.2) {
+          colSpan = 3; rowSpan = 1;
+        } else if (ratio >= 1.2) {
+          colSpan = 2; rowSpan = 1;
+        } else if (ratio >= 0.85) {
+          // near-square: give it a 1×1 but make the row taller by using rowSpan 1
+          colSpan = 1; rowSpan = 1;
+        } else if (ratio >= 0.55) {
+          // portrait
+          colSpan = 1; rowSpan = 2;
+        } else {
+          // very tall
+          colSpan = 1; rowSpan = 3;
+        }
+
+        tile.style.gridColumn = 'span ' + colSpan;
+        tile.style.gridRow    = 'span ' + rowSpan;
+      }
+
+      const images = document.querySelectorAll('#photoGrid img');
+      images.forEach(function (img) {
+        if (img.complete && img.naturalWidth) {
+          applySpan(img);
+        } else {
+          img.addEventListener('load', function () { applySpan(img); });
+          // if it errors, leave as default 1×1
+        }
+      });
+    })();
+    </script>
+
+  </body>
+</html>
