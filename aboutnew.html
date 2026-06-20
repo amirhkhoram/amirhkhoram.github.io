@@ -1,0 +1,262 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>About Me</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <style>
+
+      /* ── Masonry columns — images never crop, height is natural ── */
+      .photo-grid {
+        columns: 4;
+        column-gap: 10px;
+        padding: 2rem 2rem 3rem;
+        max-width: 1680px;
+        margin: 0 auto;
+      }
+
+      .photo-grid a {
+        display: block;
+        break-inside: avoid;
+        margin-bottom: 10px;
+        border-radius: 6px;
+        overflow: hidden;
+        position: relative;
+        background: #0d1117;
+        cursor: pointer;
+      }
+
+      .photo-grid img {
+        width: 100%;
+        height: auto;          /* natural height — zero cropping */
+        display: block;
+        border-radius: 6px;
+        transition: transform 0.4s ease, filter 0.4s ease;
+        filter: brightness(0.92);
+      }
+
+      .photo-grid a:hover img {
+        transform: scale(1.03);
+        filter: brightness(1.05);
+      }
+
+      /* caption ribbon */
+      .photo-grid a::after {
+        content: attr(data-caption);
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        padding: 0.45rem 0.7rem;
+        background: linear-gradient(transparent, rgba(0,0,0,0.6));
+        color: #fff;
+        font-size: 0.72rem;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        border-radius: 0 0 6px 6px;
+      }
+      .photo-grid a:hover::after { opacity: 1; }
+
+      @media (max-width: 1100px) { .photo-grid { columns: 3; } }
+      @media (max-width: 700px)  { .photo-grid { columns: 2; column-gap: 6px; padding: 1rem 0.6rem 2rem; } }
+      @media (max-width: 400px)  { .photo-grid { columns: 1; } }
+
+      /* ── Lightbox ── */
+      #lightbox {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: rgba(0,0,0,0.93);
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      #lightbox.open { display: flex; }
+
+      #lb-img {
+        max-width: 90vw;
+        max-height: 84vh;
+        object-fit: contain;
+        border-radius: 4px;
+        box-shadow: 0 8px 60px rgba(0,0,0,0.7);
+        transition: opacity 0.2s ease;
+      }
+      #lb-img.fade { opacity: 0; }
+
+      #lb-caption {
+        color: rgba(255,255,255,0.65);
+        font-size: 0.78rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-top: 0.9rem;
+        min-height: 1.2em;
+      }
+
+      .lb-btn {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255,255,255,0.08);
+        border: none;
+        color: #fff;
+        font-size: 2rem;
+        width: 52px; height: 52px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex; align-items: center; justify-content: center;
+        transition: background 0.2s;
+        z-index: 10000;
+      }
+      .lb-btn:hover { background: rgba(255,255,255,0.22); }
+      #lb-prev { left: 1.2rem; }
+      #lb-next { right: 1.2rem; }
+
+      #lb-close {
+        position: fixed;
+        top: 1rem; right: 1.4rem;
+        background: none; border: none;
+        color: rgba(255,255,255,0.65);
+        font-size: 2rem; cursor: pointer;
+        z-index: 10000; line-height: 1;
+        transition: color 0.2s;
+      }
+      #lb-close:hover { color: #fff; }
+
+      #lb-counter {
+        position: fixed;
+        top: 1.1rem; left: 50%;
+        transform: translateX(-50%);
+        color: rgba(255,255,255,0.4);
+        font-size: 0.75rem; letter-spacing: 0.1em;
+        z-index: 10000;
+      }
+    </style>
+  </head>
+  <body class="is-preload">
+
+    <div id="wrapper" class="divided">
+
+      <section class="wrapper style1 align-center">
+        <div class="inner">
+          <h2>About Me</h2>
+          <p>I'm a PhD candidate in Astronomy at the University of Bologna (Prof. Sirio Belli), where I explore the universe through the lenses of astrophysics and cosmology. My fascination with the stars began when I was just 6 years old—and it's been a thrilling journey ever since. I earned my MSc in Astrophysics and Cosmology (Dr. Bianca Poggianti) from the University of Padova in Italy, and my BSc (Prof. Shahram Khosravi) in Physics from Kharazmi University of Tehran, back in my hometown.</p>
+          <p>I thrive on tackling diverse research challenges across multiple areas of science. Whether it's galaxies, dark energy, or cosmic structure, I believe that juggling interdisciplinary projects fuels creativity and innovation. I'm also passionate about astrophotography—capturing galaxies, nebulae, and the night sky through my lens is where science meets art for me.</p>
+          <p>Outside academia, I'm a poet, scuba diver, climber, gravel biker, and an experimental home chef. I find joy in discovering new cuisines from different cultures, just as much as I do in riding long remote trails or crafting a well-timed verse. For me, curiosity doesn't stop at the edge of the cosmos—it's a way of life.</p>
+        </div>
+
+        <div class="photo-grid" id="photoGrid">
+          <a href="images/about/IMG_4099.png"    data-caption="Observatory">
+            <img src="images/about/IMG_4099.png"    alt="Observatory" /></a>
+          <a href="images/about/astro1.JPG"      data-caption="Astrophotography">
+            <img src="images/about/astro1.JPG"      alt="Astrophotography" /></a>
+          <a href="images/about/IMG_4110.png"    data-caption="Tenerife">
+            <img src="images/about/IMG_4110.png"    alt="Tenerife" /></a>
+          <a href="images/about.png"             data-caption="Fieldwork">
+            <img src="images/about.png"             alt="Fieldwork" /></a>
+          <a href="images/about/gravel1.JPG"     data-caption="Gravel biking">
+            <img src="images/about/gravel1.JPG"     alt="Gravel biking" /></a>
+          <a href="images/about/food1.JPG"       data-caption="Cooking">
+            <img src="images/about/food1.JPG"       alt="Cooking" /></a>
+          <a href="images/about/Travel1.jpeg"    data-caption="Travel">
+            <img src="images/about/Travel1.jpeg"    alt="Travel" /></a>
+          <a href="images/about/Bern.PNG"        data-caption="Bern">
+            <img src="images/about/Bern.PNG"        alt="Bern" /></a>
+          <a href="images/about/me1.jpg"         data-caption="Portrait">
+            <img src="images/about/me1.jpg"         alt="Portrait" /></a>
+          <a href="images/about/poetry1.JPG"     data-caption="Poetry">
+            <img src="images/about/poetry1.JPG"     alt="Poetry" /></a>
+          <a href="images/about/Kua.png">
+            <img src="images/about/Kua.png"         alt="Kua" /></a>
+          <a href="images/about/Wreck.jpg">
+            <img src="images/about/Wreck.jpg"       alt="Wreck" /></a>
+          <a href="images/about/Kangoo.png">
+            <img src="images/about/Kangoo.png"      alt="Kangoo" /></a>
+          <a href="images/about/INdo_Turtle.jpg">
+            <img src="images/about/INdo_Turtle.jpg" alt="Turtle" /></a>
+          <a href="images/about/SunBath.png">
+            <img src="images/about/SunBath.png"     alt="Sunbath" /></a>
+        </div>
+      </section>
+
+      <footer class="wrapper style1 align-center">
+        <div class="inner">
+          <p>&copy; Amir Khoram. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Lightbox -->
+    <div id="lightbox">
+      <button id="lb-close" aria-label="Close">&#x2715;</button>
+      <div id="lb-counter"></div>
+      <button class="lb-btn" id="lb-prev" aria-label="Previous">&#8592;</button>
+      <img id="lb-img" src="" alt="" />
+      <button class="lb-btn" id="lb-next" aria-label="Next">&#8594;</button>
+      <div id="lb-caption"></div>
+    </div>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <script>
+    (function () {
+      const tiles   = Array.from(document.querySelectorAll('#photoGrid a'));
+      const lb      = document.getElementById('lightbox');
+      const lbImg   = document.getElementById('lb-img');
+      const lbCap   = document.getElementById('lb-caption');
+      const lbCount = document.getElementById('lb-counter');
+      let current   = 0;
+
+      function show(idx) {
+        current = (idx + tiles.length) % tiles.length;
+        const tile = tiles[current];
+        lbImg.classList.add('fade');
+        setTimeout(function () {
+          lbImg.src = tile.getAttribute('href');
+          lbImg.alt = tile.getAttribute('data-caption') || '';
+          lbCap.textContent = tile.getAttribute('data-caption') || '';
+          lbCount.textContent = (current + 1) + ' / ' + tiles.length;
+          lbImg.onload = function () { lbImg.classList.remove('fade'); };
+          if (lbImg.complete) lbImg.classList.remove('fade');
+        }, 180);
+      }
+
+      function open(idx) {
+        lb.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        show(idx);
+      }
+
+      function close() {
+        lb.classList.remove('open');
+        document.body.style.overflow = '';
+        lbImg.src = '';
+      }
+
+      tiles.forEach(function (tile, i) {
+        tile.addEventListener('click', function (e) { e.preventDefault(); open(i); });
+      });
+
+      document.getElementById('lb-close').addEventListener('click', close);
+      document.getElementById('lb-prev').addEventListener('click', function () { show(current - 1); });
+      document.getElementById('lb-next').addEventListener('click', function () { show(current + 1); });
+      lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+      document.addEventListener('keydown', function (e) {
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'ArrowRight') show(current + 1);
+        if (e.key === 'ArrowLeft')  show(current - 1);
+        if (e.key === 'Escape')     close();
+      });
+    })();
+    </script>
+
+  </body>
+</html>
