@@ -8,12 +8,10 @@
     <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
     <style>
 
-      /* ── Photo Grid ── */
+      /* ── Masonry columns — images never crop, height is natural ── */
       .photo-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        grid-auto-rows: 260px;
-        gap: 10px;
+        columns: 4;
+        column-gap: 10px;
         padding: 2rem 2rem 3rem;
         max-width: 1680px;
         margin: 0 auto;
@@ -21,8 +19,10 @@
 
       .photo-grid a {
         display: block;
-        overflow: hidden;
+        break-inside: avoid;
+        margin-bottom: 10px;
         border-radius: 6px;
+        overflow: hidden;
         position: relative;
         background: #0d1117;
         cursor: pointer;
@@ -30,11 +30,9 @@
 
       .photo-grid img {
         width: 100%;
-        height: 100%;
-        object-fit: contain;
-        object-position: center;
+        height: auto;          /* natural height — zero cropping */
         display: block;
-        background: #0d1117;
+        border-radius: 6px;
         transition: transform 0.4s ease, filter 0.4s ease;
         filter: brightness(0.92);
       }
@@ -44,6 +42,7 @@
         filter: brightness(1.05);
       }
 
+      /* caption ribbon */
       .photo-grid a::after {
         content: attr(data-caption);
         position: absolute;
@@ -60,12 +59,9 @@
       }
       .photo-grid a:hover::after { opacity: 1; }
 
-      @media (max-width: 1100px) {
-        .photo-grid { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 210px; }
-      }
-      @media (max-width: 700px) {
-        .photo-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 160px; gap: 6px; padding: 1rem 0.6rem 2rem; }
-      }
+      @media (max-width: 1100px) { .photo-grid { columns: 3; } }
+      @media (max-width: 700px)  { .photo-grid { columns: 2; column-gap: 6px; padding: 1rem 0.6rem 2rem; } }
+      @media (max-width: 400px)  { .photo-grid { columns: 1; } }
 
       /* ── Lightbox ── */
       #lightbox {
@@ -80,31 +76,22 @@
       }
       #lightbox.open { display: flex; }
 
-      #lb-img-wrap {
-        position: relative;
-        max-width: 92vw;
-        max-height: 85vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
       #lb-img {
-        max-width: 88vw;
-        max-height: 82vh;
+        max-width: 90vw;
+        max-height: 84vh;
         object-fit: contain;
         border-radius: 4px;
         box-shadow: 0 8px 60px rgba(0,0,0,0.7);
-        transition: opacity 0.22s ease;
+        transition: opacity 0.2s ease;
       }
       #lb-img.fade { opacity: 0; }
 
       #lb-caption {
-        color: rgba(255,255,255,0.7);
-        font-size: 0.8rem;
+        color: rgba(255,255,255,0.65);
+        font-size: 0.78rem;
         letter-spacing: 0.1em;
         text-transform: uppercase;
-        margin-top: 1rem;
+        margin-top: 0.9rem;
         min-height: 1.2em;
       }
 
@@ -116,29 +103,24 @@
         border: none;
         color: #fff;
         font-size: 2rem;
-        width: 52px;
-        height: 52px;
+        width: 52px; height: 52px;
         border-radius: 50%;
         cursor: pointer;
         display: flex; align-items: center; justify-content: center;
         transition: background 0.2s;
-        user-select: none;
         z-index: 10000;
       }
-      .lb-btn:hover { background: rgba(255,255,255,0.2); }
+      .lb-btn:hover { background: rgba(255,255,255,0.22); }
       #lb-prev { left: 1.2rem; }
       #lb-next { right: 1.2rem; }
 
       #lb-close {
         position: fixed;
-        top: 1rem; right: 1.2rem;
-        background: none;
-        border: none;
-        color: rgba(255,255,255,0.7);
-        font-size: 2rem;
-        cursor: pointer;
-        z-index: 10000;
-        line-height: 1;
+        top: 1rem; right: 1.4rem;
+        background: none; border: none;
+        color: rgba(255,255,255,0.65);
+        font-size: 2rem; cursor: pointer;
+        z-index: 10000; line-height: 1;
         transition: color 0.2s;
       }
       #lb-close:hover { color: #fff; }
@@ -147,12 +129,10 @@
         position: fixed;
         top: 1.1rem; left: 50%;
         transform: translateX(-50%);
-        color: rgba(255,255,255,0.45);
-        font-size: 0.75rem;
-        letter-spacing: 0.1em;
+        color: rgba(255,255,255,0.4);
+        font-size: 0.75rem; letter-spacing: 0.1em;
         z-index: 10000;
       }
-
     </style>
   </head>
   <body class="is-preload">
@@ -162,15 +142,9 @@
       <section class="wrapper style1 align-center">
         <div class="inner">
           <h2>About Me</h2>
-          <p>
-            I'm a PhD candidate in Astronomy at the University of Bologna (Prof. Sirio Belli), where I explore the universe through the lenses of astrophysics and cosmology. My fascination with the stars began when I was just 6 years old—and it's been a thrilling journey ever since. I earned my MSc in Astrophysics and Cosmology (Dr. Bianca Poggianti) from the University of Padova in Italy, and my BSc (Prof. Shahram Khosravi) in Physics from Kharazmi University of Tehran, back in my hometown.
-          </p>
-          <p>
-            I thrive on tackling diverse research challenges across multiple areas of science. Whether it's galaxies, dark energy, or cosmic structure, I believe that juggling interdisciplinary projects fuels creativity and innovation. I'm also passionate about astrophotography—capturing galaxies, nebulae, and the night sky through my lens is where science meets art for me.
-          </p>
-          <p>
-            Outside academia, I'm a poet, scuba diver, climber, gravel biker, and an experimental home chef. I find joy in discovering new cuisines from different cultures, just as much as I do in riding long remote trails or crafting a well-timed verse. For me, curiosity doesn't stop at the edge of the cosmos—it's a way of life.
-          </p>
+          <p>I'm a PhD candidate in Astronomy at the University of Bologna (Prof. Sirio Belli), where I explore the universe through the lenses of astrophysics and cosmology. My fascination with the stars began when I was just 6 years old—and it's been a thrilling journey ever since. I earned my MSc in Astrophysics and Cosmology (Dr. Bianca Poggianti) from the University of Padova in Italy, and my BSc (Prof. Shahram Khosravi) in Physics from Kharazmi University of Tehran, back in my hometown.</p>
+          <p>I thrive on tackling diverse research challenges across multiple areas of science. Whether it's galaxies, dark energy, or cosmic structure, I believe that juggling interdisciplinary projects fuels creativity and innovation. I'm also passionate about astrophotography—capturing galaxies, nebulae, and the night sky through my lens is where science meets art for me.</p>
+          <p>Outside academia, I'm a poet, scuba diver, climber, gravel biker, and an experimental home chef. I find joy in discovering new cuisines from different cultures, just as much as I do in riding long remote trails or crafting a well-timed verse. For me, curiosity doesn't stop at the edge of the cosmos—it's a way of life.</p>
         </div>
 
         <div class="photo-grid" id="photoGrid">
@@ -214,14 +188,12 @@
       </footer>
     </div>
 
-    <!-- ── Lightbox markup ── -->
+    <!-- Lightbox -->
     <div id="lightbox">
       <button id="lb-close" aria-label="Close">&#x2715;</button>
       <div id="lb-counter"></div>
       <button class="lb-btn" id="lb-prev" aria-label="Previous">&#8592;</button>
-      <div id="lb-img-wrap">
-        <img id="lb-img" src="" alt="" />
-      </div>
+      <img id="lb-img" src="" alt="" />
       <button class="lb-btn" id="lb-next" aria-label="Next">&#8594;</button>
       <div id="lb-caption"></div>
     </div>
@@ -236,29 +208,6 @@
 
     <script>
     (function () {
-
-      /* ── 1. Aspect-ratio grid spans ── */
-      function applySpan(img) {
-        const w = img.naturalWidth, h = img.naturalHeight;
-        if (!w || !h) return;
-        const r = w / h;
-        const tile = img.closest('a');
-        let c, ro;
-        if      (r >= 2.2)  { c = 3; ro = 1; }
-        else if (r >= 1.2)  { c = 2; ro = 1; }
-        else if (r >= 0.85) { c = 1; ro = 1; }
-        else if (r >= 0.55) { c = 1; ro = 2; }
-        else                { c = 1; ro = 3; }
-        tile.style.gridColumn = 'span ' + c;
-        tile.style.gridRow    = 'span ' + ro;
-      }
-
-      document.querySelectorAll('#photoGrid img').forEach(function(img) {
-        if (img.complete && img.naturalWidth) { applySpan(img); }
-        else { img.addEventListener('load', function(){ applySpan(img); }); }
-      });
-
-      /* ── 2. Lightbox ── */
       const tiles   = Array.from(document.querySelectorAll('#photoGrid a'));
       const lb      = document.getElementById('lightbox');
       const lbImg   = document.getElementById('lb-img');
@@ -269,17 +218,13 @@
       function show(idx) {
         current = (idx + tiles.length) % tiles.length;
         const tile = tiles[current];
-        const src  = tile.getAttribute('href');
-        const cap  = tile.getAttribute('data-caption') || '';
-
         lbImg.classList.add('fade');
-        setTimeout(function() {
-          lbImg.src = src;
-          lbImg.alt = cap;
-          lbCap.textContent = cap;
+        setTimeout(function () {
+          lbImg.src = tile.getAttribute('href');
+          lbImg.alt = tile.getAttribute('data-caption') || '';
+          lbCap.textContent = tile.getAttribute('data-caption') || '';
           lbCount.textContent = (current + 1) + ' / ' + tiles.length;
-          lbImg.onload = function() { lbImg.classList.remove('fade'); };
-          // if already cached it won't fire onload, so remove immediately
+          lbImg.onload = function () { lbImg.classList.remove('fade'); };
           if (lbImg.complete) lbImg.classList.remove('fade');
         }, 180);
       }
@@ -296,30 +241,20 @@
         lbImg.src = '';
       }
 
-      tiles.forEach(function(tile, i) {
-        tile.addEventListener('click', function(e) {
-          e.preventDefault();
-          open(i);
-        });
+      tiles.forEach(function (tile, i) {
+        tile.addEventListener('click', function (e) { e.preventDefault(); open(i); });
       });
 
       document.getElementById('lb-close').addEventListener('click', close);
-      document.getElementById('lb-prev').addEventListener('click', function() { show(current - 1); });
-      document.getElementById('lb-next').addEventListener('click', function() { show(current + 1); });
-
-      // Click backdrop to close
-      lb.addEventListener('click', function(e) {
-        if (e.target === lb) close();
-      });
-
-      // Keyboard nav
-      document.addEventListener('keydown', function(e) {
+      document.getElementById('lb-prev').addEventListener('click', function () { show(current - 1); });
+      document.getElementById('lb-next').addEventListener('click', function () { show(current + 1); });
+      lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+      document.addEventListener('keydown', function (e) {
         if (!lb.classList.contains('open')) return;
         if (e.key === 'ArrowRight') show(current + 1);
         if (e.key === 'ArrowLeft')  show(current - 1);
         if (e.key === 'Escape')     close();
       });
-
     })();
     </script>
 
